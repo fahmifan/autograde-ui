@@ -1,0 +1,30 @@
+{
+  "name": "~TODO~",
+  "version": "0.0.1",
+  "scripts": {
+    "tailwind:watch": "cross-env TAILWIND_MODE=watch cross-env NODE_ENV=development postcss src/styles/tailwind.css -o src/styles/tailwind-output.css -w",
+    "tailwind:build": "cross-env TAILWIND_MODE=build cross-env NODE_ENV=production postcss src/styles/tailwind.css -o src/styles/tailwind-output.css",
+    "dev:only": "svelte-kit dev",
+    "dev": "concurrently \"npm run dev:only\" \"npm run tailwind:watch\"",
+    "build:only": "svelte-kit build",
+    "build": "npm run tailwind:build && npm run build:only",
+    "preview": "svelte-kit preview",
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "next",
+    "autoprefixer": "^10.3.1",
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "postcss-cli": "^8.3.1",
+    "prettier": "~2.2.1",
+    "prettier-plugin-svelte": "^2.2.0",
+    "svelte": "^3.34.0",
+    "tailwindcss": "^2.2.7"
+  },
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
