@@ -4,7 +4,8 @@
 	import TD from '../components/td.svelte';
 	$: assignments = [];
 	$: selectedAsg = null;
-	$: submissions = [];
+	$: mapAssignmentSubmission = {}
+	$: submissions = null;
 
 	function getAssignments() {
 		axios
@@ -24,11 +25,18 @@
 		getSubmissionForAsg(val.id);
 	}
 	function getSubmissionForAsg(asgID = '') {
+		submissions = []
+		const subms = mapAssignmentSubmission[asgID]
+		if (subms && subms.length > 0) {
+			submissions = subms
+			return
+		}
 		axios
 			.get(`http://localhost:8080/api/v1/assignments/${asgID}/submissions`)
 			.then((res) => {
-				submissions = res.data.data;
-				console.log(submissions[0]);
+				const subms = res.data.data 
+				mapAssignmentSubmission[asgID] = subms 
+				submissions = subms
 			})
 			.catch((err) => {
 				console.log(err);
